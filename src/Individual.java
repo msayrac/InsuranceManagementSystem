@@ -1,16 +1,15 @@
 import java.util.ArrayList;
 
-public class Enterprise extends Account {
+public class Individual extends Account {
 
     private User user;
-
-    public Enterprise(){
+    public Individual(){
         this.setStatus(AuthenticationStatus.FAIL);
         this.setInsuranceList(new ArrayList<>());
-        setType(1);
+        setType(0);
     }
 
-    public Enterprise(User user){
+    public Individual(User user){
         this();
         this.setUser(user);
     }

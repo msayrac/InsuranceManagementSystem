@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
+import java.util.Objects;
+
 
 public abstract class Account implements Comparable<Account> {
     enum AuthenticationStatus {SUCCESS, FAIL}
@@ -11,7 +12,7 @@ public abstract class Account implements Comparable<Account> {
 
 
     final void showUserInfo(){
-
+        System.out.println("This part gives customer information : ");
         System.out.println(user.getName() + " " + user.getSurname() + " "+user.getAge());
     }
 
@@ -23,14 +24,14 @@ public abstract class Account implements Comparable<Account> {
 
         } else{
             status = AuthenticationStatus.SUCCESS;
-
+            user.setLastLogin();
         }
     }
 
-    public abstract void addAddress(Address address);
-    public abstract void removeAddress(Address address);
+    public abstract void  addAddress(Address address);
+    public abstract void  removeAddress(Address address);
 
-    public boolean isLogin(){
+    public boolean isLogin() {
         return status == AuthenticationStatus.SUCCESS;
     }
 
@@ -38,62 +39,39 @@ public abstract class Account implements Comparable<Account> {
         this.status = status;
     }
 
-    public Account(User user, ArrayList<Insurance> insuranceList, AuthenticationStatus status, int type) {
-        this.user = user;
-        this.insuranceList = insuranceList;
-        this.status = status;
-        this.type = type;
-    }
-
-    public Account() {
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public ArrayList<Insurance> getInsuranceList() {
-        return insuranceList;
-    }
-
-    public void setInsuranceList(ArrayList<Insurance> insuranceList) {
+    public void setInsuranceList(ArrayList<Insurance> insuranceList){
         this.insuranceList = insuranceList;
     }
 
-    public AuthenticationStatus getStatus() {
-        return status;
+    public abstract void addInsurance(Insurance i);
+
+    public User getUser(){return user;}
+
+    public void setType(int a){type = a;}
+
+    public int getType(){return type;}
+
+    @Override
+    public int compareTo(Account o) {
+        return this.hashCode() - o.hashCode();
     }
 
-    public int getType() {
-        return type;
+    @Override
+    public int hashCode(){
+        return Objects.hash(user);
     }
 
-    public void setType(int type) {
-        this.type = type;
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass() ) return false;
+        Account account = (Account) obj;
+        return Objects.equals(user, account.user);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
