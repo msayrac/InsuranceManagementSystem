@@ -5,14 +5,17 @@ public abstract class Insurance {
     private String insuranceName;
     private double insurancePrice;
     private Date insuranceDate;
+    private final User user;
 
-    public Insurance(String insuranceName, double insurancePrice, Date insuranceDate) {
+    public Insurance(User user,String insuranceName, double insurancePrice, Date insuranceDate) {
         this.insuranceName = insuranceName;
         this.insurancePrice = insurancePrice;
         this.insuranceDate = insuranceDate;
+        this.user = user;
     }
 
-    public Insurance() {
+    public User getUser() {
+        return user;
     }
 
     public abstract double calculate(double insurancePrice);
